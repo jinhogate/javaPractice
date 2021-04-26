@@ -14,11 +14,9 @@ import com.hnformation.excercice.excercice1.Client;
  */
 public class MainTest {
 	static private Client[] clientArray = { new Client() };
-	static private Client client = new Client();
 
 	/**
 	 * Excercice 1.1.2 creation of main class for tests
-	 *
 	 *
 	 * Main method
 	 *
@@ -46,7 +44,7 @@ public class MainTest {
 	}
 
 	/**
-	 * This method displays the client
+	 * This method displays the clientArray
 	 */
 	private static void displayClientArray(Client[] clientArray) {
 		Stream<Client> clientStream = Arrays.stream(clientArray);
