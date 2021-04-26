@@ -9,7 +9,8 @@ public class Client {
 	// The attributes
 	private String name;
 	private String firstName;
-	private static int number;
+	private static int number = 0;
+	private int clientNumber = 0;
 
 	// constructors
 	public Client() {
@@ -18,7 +19,8 @@ public class Client {
 	public Client(String name, String firstName) {
 		this.name = name;
 		this.firstName = firstName;
-		Client.number++;
+		this.clientNumber = number;
+		number++;
 	}
 
 	// Methods -- Getters and setters
@@ -38,18 +40,18 @@ public class Client {
 		this.firstName = firstName;
 	}
 
-	public static int getNumber() {
-		return number;
+	public int getClientNumber() {
+		return clientNumber;
 	}
 
-	public static void setNumber(int number) {
-		Client.number = number;
+	public void setClientNumber(int clientNumber) {
+		this.clientNumber = clientNumber;
 	}
 
 	// Methods
 	@Override
 	public String toString() {
-		return "Client [name=" + name + ", firstName=" + firstName + ", numeber=" + number + "]";
+		return "Client [name=" + name + ", firstName=" + firstName + ", number=" + clientNumber + "]";
 	}
 
 }
