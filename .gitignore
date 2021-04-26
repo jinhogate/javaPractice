@@ -2,3 +2,6 @@ bin
 *.class
 *.unwanted
 /com.myproject.first/
+/com.vogella.egit.multi.java1/
+/com.vogella.egit.multi.java2/
+/com.vogella.git.first/
