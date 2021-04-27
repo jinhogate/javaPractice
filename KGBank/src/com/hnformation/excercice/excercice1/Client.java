@@ -51,7 +51,7 @@ public class Client {
 	// Methods
 	@Override
 	public String toString() {
-		return "Client [name=" + name + ", firstName=" + firstName + ", number=" + clientNumber + "]";
+		return "Client [name=" + name + ", firstName=" + firstName + ", clientNumber=" + clientNumber + "]";
 	}
 
 }
