@@ -4,6 +4,7 @@
 package com.hnformation.excercice.principale;
 
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.stream.Stream;
 
 import com.hnformation.excercice.excercice1.Account;
@@ -18,6 +19,7 @@ import com.hnformation.excercice.excercice1.SavingsAccount;
 public class MainTest {
 	private static Client[] clientArray;
 	private static Account[][] accountArray;
+	private static Hashtable<Integer, Account> accountTable;
 
 	/**
 	 * Main method
@@ -25,12 +27,18 @@ public class MainTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		System.out.println("Display clientArray");
 		clientArray = loadClientArray(5);
 		displayClientArray(clientArray);
 
+		System.out.println("Display accountArray");
 		accountArray = loadAccountArray(clientArray);
 		displayAccountArray(accountArray);
 
+		System.out.println("Display HashTable");
+		accountTable = loadAccountTable(accountArray);
+
+		displayAccountTable(accountTable);
 	}
 
 	/**
@@ -90,6 +98,53 @@ public class MainTest {
 		accountStream.forEach(value -> {
 			Arrays.stream(value).forEach(account -> System.out.println(account.toString()));
 		});
+	}
+
+	/**
+	 * @param accountArray
+	 * @return a HastTable
+	 */
+	private static Hashtable<Integer, Account> loadAccountTable(Account[][] accountArray) {
+		Hashtable<Integer, Account> accountTable = new Hashtable<>();
+		Stream<Account[]> accountStream = Arrays.stream(accountArray);
+		accountStream.forEach(value -> {
+			Arrays.stream(value).forEach(account -> {
+				double rand = Math.random() * 50;
+				account.setBalance(rand);
+				accountTable.put(account.getAccountNumber(), account);
+			});
+		});
+		return accountTable;
+	}
+
+	/**
+	 * This methods displays accountTable by ordered balance of account
+	 *
+	 * @param accountTable
+	 */
+	private static void displayAccountTable(Hashtable<Integer, Account> accountTable) {
+		Stream<Account> accountStream = accountTable.values().stream();
+		accountStream
+				.sorted((Account account1, Account account2) -> comparer(account1.getBalance(), account2.getBalance()))
+				.forEachOrdered(account -> System.out.println(account.toString()));
+	}
+
+	/**
+	 * This method compares 2 values and return either negative or positive or 0
+	 *
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	private static int comparer(double a, double b) {
+		double res = a - b;
+		int retour = 0;
+		if (res < 0) {
+			retour = -1;
+		} else if (res > 0) {
+			retour = 1;
+		}
+		return retour;
 	}
 
 }
