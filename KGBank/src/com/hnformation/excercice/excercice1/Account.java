@@ -30,35 +30,35 @@ public abstract class Account {
 
 	// Getter & setter
 
-	protected String getLabel() {
+	public String getLabel() {
 		return label;
 	}
 
-	protected void setLabel(String label) {
+	public void setLabel(String label) {
 		this.label = label;
 	}
 
-	protected double getBalance() {
+	public double getBalance() {
 		return balance;
 	}
 
-	protected void setBalance(double balance) {
+	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 
-	protected int getAccountNumber() {
+	public int getAccountNumber() {
 		return accountNumber;
 	}
 
-	protected void setAccountNumber(int accountNumber) {
+	public void setAccountNumber(int accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 
-	protected Client getClient() {
+	public Client getClient() {
 		return client;
 	}
 
-	protected void setClient(Client client) {
+	public void setClient(Client client) {
 		this.client = client;
 	}
 
