@@ -11,7 +11,7 @@ public abstract class Account {
 	// 1.2.1 Creation of the account class
 	// attributs
 	protected String label;
-	protected double balance;
+	protected Flow balance;
 	protected int accountNumber = 0;
 	protected static int number = 0;
 	protected Client client;
@@ -38,11 +38,11 @@ public abstract class Account {
 		this.label = label;
 	}
 
-	public double getBalance() {
+	public Flow getBalance() {
 		return balance;
 	}
 
-	public void setBalance(double balance) {
+	public void setBalance(Flow flow) {
 		this.balance = balance;
 	}
 
@@ -65,8 +65,8 @@ public abstract class Account {
 	// Methods
 	@Override
 	public String toString() {
-		return "Account [label=" + label + ", balance=" + balance + ", accountNumber=" + accountNumber + ", client="
-				+ client.toString() + "]";
+		return "Account [label=" + label + ", balance=" + balance.toString() + ", accountNumber=" + accountNumber
+				+ ", client=" + client.toString() + "]";
 	}
 
 }
