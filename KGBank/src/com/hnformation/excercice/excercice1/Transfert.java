@@ -9,25 +9,25 @@ package com.hnformation.excercice.excercice1;
  */
 public class Transfert extends Flow {
 	// Attributes
-	private double account;
+	private int accountIssuing;
 
 	// Constructor
 	public Transfert() {
 		super();
 	}
 
-	public Transfert(double account) {
+	public Transfert(int account) {
 		super();
-		this.account = account;
+		this.accountIssuing = account;
 	}
 
 	// Getter&setter
 	protected double getAccount() {
-		return account;
+		return accountIssuing;
 	}
 
-	protected void setAccount(double account) {
-		this.account = account;
+	protected void setAccount(int account) {
+		this.accountIssuing = account;
 	}
 
 }
