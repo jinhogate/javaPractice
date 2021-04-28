@@ -22,12 +22,12 @@ public class Transfert extends Flow {
 	}
 
 	// Getter&setter
-	protected double getAccount() {
+	public int getAccountIssuing() {
 		return accountIssuing;
 	}
 
-	protected void setAccount(int account) {
-		this.accountIssuing = account;
+	public void setAccountIssuing(int accountIssuing) {
+		this.accountIssuing = accountIssuing;
 	}
 
 }
