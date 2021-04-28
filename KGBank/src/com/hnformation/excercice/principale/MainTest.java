@@ -3,14 +3,20 @@
  */
 package com.hnformation.excercice.principale;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import com.hnformation.excercice.excercice1.Account;
 import com.hnformation.excercice.excercice1.Client;
+import com.hnformation.excercice.excercice1.Credit;
 import com.hnformation.excercice.excercice1.CurrentAccount;
+import com.hnformation.excercice.excercice1.Debit;
+import com.hnformation.excercice.excercice1.Flow;
 import com.hnformation.excercice.excercice1.SavingsAccount;
+import com.hnformation.excercice.excercice1.Transfert;
 
 /**
  * @author jorji
@@ -20,6 +26,7 @@ public class MainTest {
 	private static Client[] clientArray;
 	private static Account[][] accountArray;
 	private static Hashtable<Integer, Account> accountTable;
+	private static Flow[] flowArray;
 
 	/**
 	 * Main method
@@ -35,10 +42,12 @@ public class MainTest {
 		accountArray = loadAccountArray(clientArray);
 		displayAccountArray(accountArray);
 
-		System.out.println("Display HashTable");
 		accountTable = loadAccountTable(accountArray);
-
+		flowArray = loadFlowArray();
+		updateBalance(flowArray, accountTable);
+		System.out.println("Display accountTable");
 		displayAccountTable(accountTable);
+
 	}
 
 	/**
@@ -109,8 +118,6 @@ public class MainTest {
 		Stream<Account[]> accountStream = Arrays.stream(accountArray);
 		accountStream.forEach(value -> {
 			Arrays.stream(value).forEach(account -> {
-				double rand = Math.random() * 50;
-				account.setBalance(rand);
 				accountTable.put(account.getAccountNumber(), account);
 			});
 		});
@@ -145,6 +152,76 @@ public class MainTest {
 			retour = 1;
 		}
 		return retour;
+	}
+
+	/**
+	 * This method allows us to load the flow
+	 *
+	 * @return
+	 */
+	private static Flow[] loadFlowArray() {
+		int size = 1 + accountArray[0].length + accountArray[1].length + 1;
+		int compteur = 0;
+		// Adds debit flow
+		Flow[] flow = new Flow[size];
+		Flow debitAccount1 = new Debit();
+		debitAccount1.setAmount(50);
+		debitAccount1.setTargetAccountNumber(1);
+		flow[compteur] = debitAccount1;
+
+		// Adds credit flow on all current accounts
+		for (Account currentAccount : accountArray[0]) {
+			compteur++;
+			Flow credit = new Credit();
+			credit.setAmount(100.5);
+			credit.setTargetAccountNumber(currentAccount.getAccountNumber());
+			flow[compteur] = credit;
+		}
+
+		// Adds credit flow on all savings account
+		for (Account savingsAccount : accountArray[1]) {
+			compteur++;
+			Flow credit = new Credit();
+			credit.setAmount(1500);
+			credit.setTargetAccountNumber(savingsAccount.getAccountNumber());
+			flow[compteur] = credit;
+		}
+
+		// Adds transfert flow
+		Transfert transfert = new Transfert();
+		transfert.setAmount(50);
+		transfert.setTargetAccountNumber(2);
+		transfert.setAccountIssuing(1);
+		flow[++compteur] = transfert;
+
+		// Adds a date flow to each flow
+		LocalDateTime dateFlow = LocalDateTime.now().plusDays(2);
+		for (Flow flowAccount : flow) {
+			flowAccount.setFlowDate(dateFlow);
+		}
+
+		return flow;
+	}
+
+	/**
+	 * This methods updates each balance of the accounts through the flows
+	 * 
+	 * @param flow
+	 * @param accountTable
+	 */
+	private static void updateBalance(Flow[] flow, Hashtable<Integer, Account> accountTable) {
+		for (Flow flowAccount : flow) {
+			if (flowAccount instanceof Transfert) {// Specify the accountIssuing if the flow is a Transfert
+				accountTable.get(((Transfert) flowAccount).getAccountIssuing()).setBalance(flowAccount);
+			}
+			accountTable.get(flowAccount.getTargetAccountNumber()).setBalance(flowAccount);
+		}
+
+		Stream<Account> accountStream = accountTable.values().stream();
+		Optional<Account> optionalAccount = accountStream.filter(account -> account.getBalance() < 0).findAny();
+		if (optionalAccount.isPresent()) {
+			System.out.println("There is an account with negative  balance");
+		}
 	}
 
 }
