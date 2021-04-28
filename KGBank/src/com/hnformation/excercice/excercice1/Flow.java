@@ -12,14 +12,17 @@ import java.time.LocalDateTime;
 public abstract class Flow {
 	// Attributs
 	private String comment;
-	private int identifier;
+	private int identifier = 0;
 	private double amount;
 	private int targetAccountNumber;
 	private boolean effect;
 	private LocalDateTime flowDate;
+	private static int identifierValue = 0;
 
 	// constructors
 	public Flow() {
+		identifier = identifierValue;
+		identifierValue++;
 	}
 
 	public Flow(String comment, int identifier, double amount, int targetAccountNumber, boolean effect,
@@ -33,51 +36,51 @@ public abstract class Flow {
 	}
 
 	// getters & setters
-	protected String getComment() {
+	public String getComment() {
 		return comment;
 	}
 
-	protected void setComment(String comment) {
+	public void setComment(String comment) {
 		this.comment = comment;
 	}
 
-	protected int getIdentifier() {
+	public int getIdentifier() {
 		return identifier;
 	}
 
-	protected void setIdentifier(int identifier) {
+	public void setIdentifier(int identifier) {
 		this.identifier = identifier;
 	}
 
-	protected double getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	protected void setAmount(double amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
-	protected int getTargetAccountNumber() {
+	public int getTargetAccountNumber() {
 		return targetAccountNumber;
 	}
 
-	protected void setTargetAccountNumber(int targetAccountNumber) {
+	public void setTargetAccountNumber(int targetAccountNumber) {
 		this.targetAccountNumber = targetAccountNumber;
 	}
 
-	protected boolean isEffect() {
+	public boolean isEffect() {
 		return effect;
 	}
 
-	protected void setEffect(boolean effect) {
+	public void setEffect(boolean effect) {
 		this.effect = effect;
 	}
 
-	protected LocalDateTime getFlowDate() {
+	public LocalDateTime getFlowDate() {
 		return flowDate;
 	}
 
-	protected void setFlowDate(LocalDateTime flowDate) {
+	public void setFlowDate(LocalDateTime flowDate) {
 		this.flowDate = flowDate;
 	}
 
